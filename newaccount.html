@@ -2,25 +2,25 @@
 <html>
 <head>
 <title> New Account </title>
-<link rel="stylesheet" type="text/css" href="css/style3.css">
+<link rel="stylesheet" type="text/css" href="style3.css">
 <body>
 	<div class="logo">
 			<img src="logo.png">
 	</div>
 	<div class="newaccount">
 	<h1> Create New Account </h1>
-			<form>
-				<p>First name:</p>
-				<input type="text" name="" placeholder="Enter First name">
-				<p>Last name:</p>
-				<input type="text" name="" placeholder="Enter Last name">
+			<form action=insert.php method="POST">
+				<p>Enter your Name:</p>
+				<input type="text" name="name" placeholder="Enter Your Name">
+				<p>Username:</p>
+				<input type="text" name="username" placeholder="Enter User name">
 				<p>Email Address:</p>
-				<input type="text" name="" placeholder="Enter Email Address">
+				<input type="text" name="email" placeholder="Enter Email">
+				<p>Password:</p>
+				<input type="text" name="password" placeholder="Password">
+
 			<div>
-				<label class="container">Male</label>
-				<input type="radio" name="sex" value="male">
-				<label class="container">Female</label>
-				<input type="radio" name="sex" value="female"> 
+				
 				<input type="submit" value="Submit">
 			</div>
 
