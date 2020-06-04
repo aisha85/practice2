@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="format-detecttion" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no",initial-scale=1,maximum-scale=1,minimum-scale=1,width-device=1>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style10.css">
+
+
+    <title>Sample</title>
+    </head>
+
+
+    <body>
+        <div class="cont">
+            <div class="form sign-in">
+        <h2>Sign In</h2>
+        <button class="submit" type="button" onclick="googleSignIn()">Sign In With Google Account</button>
+        <button class="submit" type="button" onclick="googleSignout()">Sign Out</button>
+
+
+        <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
+
+        
+            <script>
+
+                var firebaseConfig = {
+                 apiKey: "AIzaSyA4HeDyhg52opEOPQk4WuTzV-p7nL_8TqY",
+                 authDomain: "form-412d7.firebaseapp.com",
+                 databaseURL: "https://form-412d7.firebaseio.com",
+                 projectId: "form-412d7",
+                 storageBucket: "form-412d7.appspot.com",
+                 messagingSenderId: "130293755288",
+                 appId: "1:130293755288:web:ab6f53cd8792c2b24e8fed"
+  };
+             firebase.initializeApp(firebaseConfig);
+
+             googleSignIn=()=>{
+                 var provider=new firebase.auth.GoogleAuthProvider();
+                 
+
+                 firebase.auth().signInWithPopup(provider).then(function(result){
+                     console.log("result")
+                     console.log("Success Google Account")
+
+                 }).catch(function(err){
+                     console.log(err)
+                     console.log("Failed to do")
+
+                 })
+                
+           
+                }   
+
+
+                function googleSignout() {
+                firebase.auth().signOut().then(function() {
+                    console.log('Signout Succesfull')}, 
+                    function(error) {
+                    console.log('Signout Failed')  
+                    });
+                }
+             
+        </script>
+
+
+
+    </body>
+
+
+</html>
