@@ -5,25 +5,65 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no",initial-scale=1,maximum-scale=1,minimum-scale=1,width-device=1>
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style10.css">
+    <link rel="stylesheet" type="text/css" href="style12.css">
+
+  
 
 
-    <title>Sample</title>
+    <title>Login</title>
     </head>
 
 
     <body>
-        <div class="cont">
-            <div class="form sign-in">
-        <h2>Sign In</h2>
-        <button class="submit" type="button" onclick="googleSignIn()">Sign In With Google Account</button>
-        <button class="submit" type="button" onclick="googleSignout()">Sign Out</button>
 
+        <p id="demo"></p>
+
+        <div class="container1">
+        <span class="text1">Welcome to Our LMS Portal</span>
+        
+        
+        
+        <h1>Sign In</h1>
+            <div class="img">
+                <img src="img1.svg">
+            </div>
+            
+        <h2>Please Select if you are student or Professor</h2></br></br>
+        <div class="dropdown">
+            <button class="dropbtn">Select</button>
+            <div class="dropdown-content">
+
+                <form action="page2.html">
+                    <label for="users">Please Select an option:</label>
+                    <div class="custom-select" style="width:200px;">
+                    <select name="users" id="users">
+                        <option>  Student</option>
+                        <option> Professor</option>
+                        <option> Admin</option>
+                        <input type="submit" value="submit" onclick="passval()">
+                    </select>
+
+                </form>
+
+            
+            </div>
+          </div>
+
+      
+        <button id="signin" class="submit" type="button" onclick="googleSignIn()">Sign In </button>
+        <button id="signout"class="submit" type="button" onclick="googleSignout()">Sign Out</button>
+
+   
 
         <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.14.6/firebase-auth.js"></script>
 
-        
+        <div class="Loggedin">
+        <h3>Welcome you are logged in as a <span id="clientName"></span></h3>
+
+
+    </div>
+
             <script>
 
                 var firebaseConfig = {
@@ -37,15 +77,51 @@
   };
              firebase.initializeApp(firebaseConfig);
 
+            
+
+
+         function login(){
+                function newloginhappened(user){
+                    if(user){
+                        //user is signed in
+                       app(user);
+
+                   } else {
+                       var provider=new firebase.auth.GoogleAuthProvider();
+                      firebase.auth().signInWithRedirect(provider);
+                    }
+                }
+                firebase.auth().onAuthStateChanged(newloginhappened);
+            }
+
+        
+
+
+
+
+
              googleSignIn=()=>{
                  var provider=new firebase.auth.GoogleAuthProvider();
                  
 
                  firebase.auth().signInWithPopup(provider).then(function(result){
+                    var token = result.credential.accessToken;
+                    var user = result.user;
+
                      console.log("result")
+                     console.log(user); // Output of email address 
+                     console.log(token); // output of token API
                      console.log("Success Google Account")
+                     document.getElementById("clientName").innerHTML=user.displayName;
+
+
 
                  }).catch(function(err){
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    var email = error.email;
+                    var credential = error.credential;
+
                      console.log(err)
                      console.log("Failed to do")
 
@@ -60,13 +136,59 @@
                     console.log('Signout Succesfull')}, 
                     function(error) {
                     console.log('Signout Failed')  
+                    $("#clientName").html('Logout Successfully');
+
+
+                    
+
                     });
+
+
                 }
              
+
+                firebase.auth().getRedirectResult().then(function(result) {
+                if (result.credential) {
+                 // This gives you a Google Access Token. You can use it to access the Google API.
+                 var token = result.credential.accessToken;
+   
+                    }
+                 // The signed-in user info.
+                            var user = result.user;
+                            }).catch(function(error) {
+                         // Handle Errors here.
+                         var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // The email of the user's account used.
+                     var email = error.email;
+                 // The firebase.auth.AuthCredential type that was used.
+                 var credential = error.credential;
+ 
+                    });
+
+
+
+
+
+           
+            function passval()
+            {
+                var selecttext=document.getElementById("users").value;
+                localStorage.setItem("ddvalue",selecttext);
+                return true;
+                
+            }
+
+    
+              
+          
+          
+        
         </script>
 
-
-
+       
+    </div>
+</div>
     </body>
 
 
